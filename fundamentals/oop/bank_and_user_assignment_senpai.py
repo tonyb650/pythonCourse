@@ -1,7 +1,6 @@
 class BankAccount:
     accounts = [] # class attribute, list that holds all accounts
     def __init__(self, interest_rate, start_balance, account_type, account_holder): # initialize BankAccount here
-        # print()
         self.interest_rate = interest_rate
         self.balance = start_balance
         self.account_type = account_type
@@ -10,7 +9,6 @@ class BankAccount:
         BankAccount.accounts.append(self) # add each new instance to list
 
     def deposit(self, amount, account_holder): # Make deposit to account, check for positive deposit amount first
-        # print()
         if amount < 0:
             print("Negative deposits are not allowed.")
         else:
@@ -20,7 +18,6 @@ class BankAccount:
         return self
 
     def withdraw(self, amount, account_holder): # Make withdrawal from account, check that there is a sufficient balance first
-        # print()
         if self.balance < amount:
             self.balance -= 5
             print(f"Insufficient balance for requested withdrawal. $5.00 fee applied {account_holder}`s {self.account_type} account.")
@@ -35,7 +32,6 @@ class BankAccount:
         return self
 
     def yield_interest(self, account_holder): # Calculate and add interest to account, check if there is a positive balance first
-        # print()
         if self.balance <= 0:
             print("No principle balance on account. No interest applied.")
         else:
@@ -67,7 +63,6 @@ class BankAccount:
 
 
 class User():
-    # user_accounts = []
     def __init__(self, first_name, last_name, age):
         self.first_name = first_name
         self.last_name = last_name
@@ -76,26 +71,21 @@ class User():
 
     def add_account(self,interest_rate=.1,amount=0, account_id="Checking"): 
         print()
-        # account_holder = conc_name()
-        # account_holder = f"{self.first_name} {self.last_name}"
         self.accounts[account_id] = BankAccount(interest_rate, amount, account_id, User.conc_name(self)) # Construct new account instance and add to 'user.accounts' dictionary with key 'account_id' and value of the 'BankAccount' instance
         return self
 
     def make_deposit (self, amount, account_id):
         print()
-        # account_holder = (f"{self.first_name} {self.last_name}")
         self.accounts[account_id].deposit(amount, User.conc_name(self)) # Run the 'BankAccount deposit()' method on the account instance in the 'user.accounts' dictionary with the key of 'account_id'
         return self
     
     def make_withdrawal(self, amount, account_id):
         print()
-        # account_holder = (f"{self.first_name} {self.last_name}")
         self.accounts[account_id].withdraw(amount, User.conc_name(self))
         return self
     
     def add_interest(self, account_id):
         print()
-        # account_holder = (f"{self.first_name} {self.last_name}")
         self.accounts[account_id].yield_interest(User.conc_name(self))
         return self
     
@@ -109,10 +99,10 @@ class User():
         print()
         print("***TRANSFER***")
         print(f"Transferring {amount} from {User.conc_name(self)}`s {from_account} to {User.conc_name(to_user)}`s {to_account}.")
-        self.accounts[from_account].withdraw(amount, User.conc_name(self))
-        to_user.accounts[to_account].deposit(amount, User.conc_name(to_user))
+        self.accounts[from_account].withdraw(amount, User.conc_name(self)) # withdraw transfer amount from "self"
+        to_user.accounts[to_account].deposit(amount, User.conc_name(to_user)) # deposit transfer amount to "to_user"
 
-    def conc_name(user):
+    def conc_name(user): # little function to concatenate user first and last name
         return f"{user.first_name} {user.last_name}"
 
 # *********** END *User* CLASS **************
